@@ -1,0 +1,15 @@
+{
+  "name": "opslevel-pair-programming-interview-redo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:skawaguchi/opslevel-pair-programming-interview-redo.git",
+  "author": "Stephen Kawaguchi <stephen.kawaguchi@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "vitest",
+    "test:watch": "vitest --watch"
+  },
+  "devDependencies": {
+    "vitest": "^0.29.2"
+  }
+}
