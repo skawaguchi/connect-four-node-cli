@@ -5,7 +5,12 @@ import {
 } from './connect-four.mjs'
 import * as readline from 'node:readline/promises'
 
-vi.mock('readline')
+vi.mock('node:readline/promises')
+
+const readlineMock = {
+    question: vi.fn()
+}
+readline.createInterface.mockReturnValue(readlineMock)
 
 describe('Connect Four', () => {
     const consoleInfoStub = vi.spyOn(console, 'info').mockImplementation(() => {})
@@ -29,6 +34,6 @@ describe('Connect Four', () => {
         start()
 
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.any(String))
-        expect(readline.question).toHaveBeenCalledWith(expect.stringContaining('RED'))
+        expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('RED'))
     })
 })
