@@ -1,9 +1,9 @@
 import { beforeEach } from 'vitest'
 import {
-    chooseStartingPlayer,
     getBoard,
     start
-} from './connect-four'
+} from './connect-four.mjs'
+import * as readline from 'node:readline/promises'
 
 vi.mock('readline')
 
@@ -25,13 +25,10 @@ describe('Connect Four', () => {
         }
     })
 
-    it('should choose "red" as the starting player', () => {
-        expect(chooseStartingPlayer()).toEqual('RED')
-    })
-
-    it('should start the game with a message', () => {
+    it('should start the game and display a welcome message', () => {
         start()
 
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.any(String))
+        expect(readline.question).toHaveBeenCalledWith(expect.stringContaining('RED'))
     })
 })

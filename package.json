@@ -6,6 +6,7 @@
   "author": "Stephen Kawaguchi <stephen.kawaguchi@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node --experimental-modules ./index.mjs",
     "test": "vitest",
     "test:watch": "vitest --watch"
   },
