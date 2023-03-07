@@ -18,7 +18,7 @@ export const getBoard = (cols = 7, rows = 6) => {
 const promptPlayer = async (rl, player) => {
     const move = await rl.question(`It is ${player}'s turn. Type 1 - 7 and hit ENTER. `)
     console.log(move)
-    // rl.close()
+    rl.close()
 }
 
 export const start = () => {
