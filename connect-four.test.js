@@ -3,9 +3,9 @@ import {
     getBoard,
     start
 } from './connect-four.mjs'
-import * as readline from 'node:readline/promises'
+import * as readline from 'node:readline'
 
-vi.mock('node:readline/promises')
+vi.mock('node:readline')
 
 const readlineMock = {
     close: vi.fn(),
@@ -38,14 +38,16 @@ describe('Connect Four', () => {
         await start()
 
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.any(String))
-        expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('RED'))
+
+        expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('RED'), expect.any(Function))
     })
 
     it('should exit the game on bad input ', async () => {
-        readlineMock.question.mockReturnValueOnce('abc')
         
         await start()
+
+        readlineMock.question.calls[0][1]('abc')
         
-        expect(consoleErrorStub).toHaveBeenCalledWith('Invalid input: abc')
+        expect(consoleErrorStub).toHaveBeenCalledWith('Invalid input: "abc". Try again.')
     })
 })
