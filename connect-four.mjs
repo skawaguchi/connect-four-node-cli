@@ -1,9 +1,7 @@
 import * as readline from 'node:readline/promises'
 import { stdin, stdout } from 'node:process'
 
-
-
-export const chooseStartingPlayer = () => {
+const chooseStartingPlayer = () => {
     return 'RED'
 }
 
@@ -15,10 +13,22 @@ export const getBoard = (cols = 7, rows = 6) => {
     return board
 }
 
+const processMove = (rl, player, index) => {
+
+}
+
 const promptPlayer = async (rl, player) => {
-    const move = await rl.question(`It is ${player}'s turn. Type 1 - 7 and hit ENTER. `)
-    console.log(move)
-    rl.close()
+    let moveInput
+    try {
+        moveInput = await rl.question(`It is ${player}'s turn. Type 1 - 7 and hit ENTER. `)
+    } catch(error) {
+        throw new Error(error)
+    }
+
+    if (isNaN(moveInput)) {
+        console.error(`Invalid input: ${moveInput}`)
+    } 
+    // const index = parseInt(moveInput) - 1
 }
 
 export const start = () => {
