@@ -50,4 +50,13 @@ describe('Connect Four', () => {
         
         expect(consoleErrorStub).toHaveBeenCalledWith('Invalid input: "abc". Try again.')
     })
+
+    it('should place a piece in an empty slot', async () => {
+        
+        await start()
+
+        readlineMock.question.calls[0][1]('1')
+        
+        expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('| R |'))
+    })
 })
