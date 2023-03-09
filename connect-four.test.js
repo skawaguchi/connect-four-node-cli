@@ -82,19 +82,55 @@ describe('Connect Four', () => {
         expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('It is RED\'s turn.'), expect.any(Function))
     })
 
-    it.skip('should be a tie if all places are full', async () => {
+    const getLatestCall = () => {
+        return  readlineMock.question.calls[readlineMock.question.calls.length - 1]
+    }
+    it('should be a tie if all places are full', async () => {
         
         await start()
-
-        for (let i = 1; i <= 6; i++) {
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('4')
-            readlineMock.question.calls[0][1]('5')
-            readlineMock.question.calls[0][1]('6')
-            readlineMock.question.calls[0][1]('7')
-        }
+        
+        getLatestCall()[1]('1')
+        getLatestCall()[1]('1')
+        getLatestCall()[1]('1')
+        getLatestCall()[1]('1')
+        getLatestCall()[1]('1')
+        getLatestCall()[1]('1')
+        getLatestCall()[1]('2')
+        getLatestCall()[1]('2')
+        getLatestCall()[1]('2')
+        getLatestCall()[1]('2')
+        getLatestCall()[1]('2')
+        getLatestCall()[1]('2')
+        getLatestCall()[1]('3')
+        getLatestCall()[1]('3')
+        getLatestCall()[1]('3')
+        getLatestCall()[1]('3')
+        getLatestCall()[1]('3')
+        getLatestCall()[1]('3')
+        getLatestCall()[1]('7')
+        getLatestCall()[1]('7')
+        getLatestCall()[1]('7')
+        getLatestCall()[1]('7')
+        getLatestCall()[1]('7')
+        getLatestCall()[1]('7')
+        getLatestCall()[1]('6')
+        getLatestCall()[1]('6')
+        getLatestCall()[1]('6')
+        getLatestCall()[1]('6')
+        getLatestCall()[1]('6')
+        getLatestCall()[1]('6')
+        getLatestCall()[1]('5')
+        getLatestCall()[1]('5')
+        getLatestCall()[1]('5')
+        getLatestCall()[1]('5')
+        getLatestCall()[1]('5')
+        getLatestCall()[1]('4')
+        getLatestCall()[1]('4')
+        getLatestCall()[1]('4')
+        getLatestCall()[1]('4')
+        getLatestCall()[1]('4')
+        getLatestCall()[1]('4')
+        getLatestCall()[1]('5')
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('It is a tie! Game over.'))
     })

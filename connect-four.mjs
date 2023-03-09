@@ -118,13 +118,15 @@ const checkForWin = (rl, board, player) => {
 
 const processTurnOver = (rl, board, player) => {
     const nextPlayer = player === 'RED' ? 'YELLOW' : 'RED'
-    promptPlayer(rl, board, nextPlayer)
 
     if (isBoardFull(board)) {
         console.info('It is a tie! Game over.')
         rl.close()
         return
     }
+
+    promptPlayer(rl, board, nextPlayer)
+
 }
 
 const processMove = (rl, board, moveInput, player) => {
