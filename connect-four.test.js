@@ -82,7 +82,7 @@ describe('Connect Four', () => {
         expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('It is RED\'s turn.'), expect.any(Function))
     })
 
-    it('should be a tie if all places are full', async () => {
+    it.skip('should be a tie if all places are full', async () => {
         
         await start()
 

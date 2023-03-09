@@ -89,7 +89,26 @@ const checkForWin = (rl, board, player) => {
                 dp[i][j].vertical = 1
             }
 
-            if (dp[i][j].horizontal >= WIN_CONDITION || dp[i][j].vertical >= WIN_CONDITION) {
+            // backslash
+            if (i < rows - 1 && j > 0 && board[i + 1][j - 1] === board[i][j]) {
+                dp[i][j].backSlash = dp[i + 1][j - 1].backSlash + 1
+            } else {
+                dp[i][j].backSlash = 1
+            }
+
+            // forwardSlash
+            if (i > 0 && j < cols - 1 && board[i - 1][j + 1] === board[i][j]) {
+                dp[i][j].forwardSlash = dp[i - 1][j + 1].forwardSlash + 1
+            } else {
+                dp[i][j].forwardSlash = 1
+            }
+
+            if (
+                dp[i][j].horizontal >= WIN_CONDITION ||
+                dp[i][j].vertical >= WIN_CONDITION ||
+                dp[i][j].forwardSlash >= WIN_CONDITION ||
+                dp[i][j].backSlash >= WIN_CONDITION
+            ) {
                 return true
             }
         }
