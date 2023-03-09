@@ -1,5 +1,6 @@
 import * as readline from 'node:readline'
 import { stdin, stdout } from 'node:process'
+import chalk from 'chalk'
 
 const WIN_CONDITION = 4
 
@@ -33,7 +34,9 @@ const printBoard = (board) => {
             if (!spot) {
                 char = '   '
             } else {
-                char = ` ${spot.substring(0, 1)} `
+                const playerChar = spot.substring(0, 1)
+                const color = playerChar === 'R' ? 'red' : 'yellow'
+                char = ` ${chalk[color](playerChar)} `
             }
             output += char + '|'
         }
@@ -42,7 +45,7 @@ const printBoard = (board) => {
     output += '----'.repeat(board[0].length)
     output += '-\n'
 
-    console.info(output)
+    console.info(chalk.blue(output))
 }
 const isBoardFull = (board) => {
     return board.every((row) => {

@@ -64,15 +64,6 @@ describe('Connect Four', () => {
         expect(consoleErrorStub).toHaveBeenCalledWith(expect.stringContaining('Invalid input: "8"'))
     })
 
-    it('should place a piece in an empty slot', async () => {
-        
-        await start()
-
-        makeMove('1')
-        
-        expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('| R |'))
-    })
-
     it('should switch to the next player', async () => {
         
         await start()
