@@ -59,4 +59,26 @@ describe('Connect Four', () => {
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('| R |'))
     })
+
+    it('should switch to the next player', async () => {
+        
+        await start()
+
+        readlineMock.question.calls[0][1]('1')
+        
+        expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('It is YELLOW\'s turn.'), expect.any(Function))
+    })
+
+    it('should prevent placing a piece in a full column', async () => {
+        
+        await start()
+
+        for (let i = 1; i <= 7; i++) {
+            readlineMock.question.calls[0][1]('1')
+        }
+        
+        expect(consoleErrorStub).toHaveBeenCalledWith(expect.stringContaining('Invalid move. You cannot place a piece in a full column.'))
+
+        expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('It is RED\'s turn.'), expect.any(Function))
+    })
 })

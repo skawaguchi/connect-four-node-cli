@@ -33,6 +33,11 @@ const printBoard = (board) => {
     console.info(output)
 }
 
+const processTurnOver = (rl, board, player) => {
+    const nextPlayer = player === 'RED' ? 'YELLOW' : 'RED'
+    promptPlayer(rl, board, nextPlayer)
+}
+
 const processMove = (rl, board, moveInput, player) => {
     if (isNaN(moveInput)) {
         console.error(`Invalid input: "${moveInput}". Try again.`)
@@ -52,11 +57,15 @@ const processMove = (rl, board, moveInput, player) => {
         }
     }
 
+    if (!isPlaced) {
+        console.error('Invalid move. You cannot place a piece in a full column. Try again.')
+        promptPlayer(rl, board, player)
+        return
+    }
+
     printBoard(board)
 
-    // if (!isPlaced) {
-    //     console.error(`Invalid input: "${moveInput}". Try again.`)
-    // }
+    processTurnOver(rl, board, player)
 }
 
 const promptPlayer = async (rl, board, player) => {
