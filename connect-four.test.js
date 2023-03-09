@@ -46,7 +46,7 @@ describe('Connect Four', () => {
         expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('RED'), expect.any(Function))
     })
 
-    it('should exit the game on bad input ', async () => {
+    it('should prevent a move with non-numeric characters and let the player try a different move', async () => {
         
         await start()
 
