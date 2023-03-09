@@ -17,6 +17,10 @@ describe('Connect Four', () => {
     const consoleInfoStub = vi.spyOn(console, 'info').mockImplementation(() => {})
     const consoleErrorStub = vi.spyOn(console, 'error').mockImplementation(() => {})
 
+    const makeMove = (move) => {
+        return  readlineMock.question.calls[readlineMock.question.calls.length - 1][1](move)
+    }
+
     beforeEach(() => {
         consoleInfoStub.mockClear()
         consoleErrorStub.mockClear()
@@ -46,7 +50,7 @@ describe('Connect Four', () => {
         
         await start()
 
-        readlineMock.question.calls[0][1]('abc')
+        makeMove('abc')
         
         expect(consoleErrorStub).toHaveBeenCalledWith('Invalid input: "abc". Try again.')
     })
@@ -55,7 +59,7 @@ describe('Connect Four', () => {
         
         await start()
 
-        readlineMock.question.calls[0][1]('1')
+        makeMove('1')
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('| R |'))
     })
@@ -64,7 +68,7 @@ describe('Connect Four', () => {
         
         await start()
 
-        readlineMock.question.calls[0][1]('1')
+        makeMove('1')
         
         expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('It is YELLOW\'s turn.'), expect.any(Function))
     })
@@ -74,7 +78,7 @@ describe('Connect Four', () => {
         await start()
 
         for (let i = 1; i <= 7; i++) {
-            readlineMock.question.calls[0][1]('1')
+            makeMove('1')
         }
         
         expect(consoleErrorStub).toHaveBeenCalledWith(expect.stringContaining('Invalid move. You cannot place a piece in a full column.'))
@@ -82,55 +86,52 @@ describe('Connect Four', () => {
         expect(readlineMock.question).toHaveBeenCalledWith(expect.stringContaining('It is RED\'s turn.'), expect.any(Function))
     })
 
-    const getLatestCall = () => {
-        return  readlineMock.question.calls[readlineMock.question.calls.length - 1]
-    }
     it('should be a tie if all places are full', async () => {
         
         await start()
         
-        getLatestCall()[1]('1')
-        getLatestCall()[1]('1')
-        getLatestCall()[1]('1')
-        getLatestCall()[1]('1')
-        getLatestCall()[1]('1')
-        getLatestCall()[1]('1')
-        getLatestCall()[1]('2')
-        getLatestCall()[1]('2')
-        getLatestCall()[1]('2')
-        getLatestCall()[1]('2')
-        getLatestCall()[1]('2')
-        getLatestCall()[1]('2')
-        getLatestCall()[1]('3')
-        getLatestCall()[1]('3')
-        getLatestCall()[1]('3')
-        getLatestCall()[1]('3')
-        getLatestCall()[1]('3')
-        getLatestCall()[1]('3')
-        getLatestCall()[1]('7')
-        getLatestCall()[1]('7')
-        getLatestCall()[1]('7')
-        getLatestCall()[1]('7')
-        getLatestCall()[1]('7')
-        getLatestCall()[1]('7')
-        getLatestCall()[1]('6')
-        getLatestCall()[1]('6')
-        getLatestCall()[1]('6')
-        getLatestCall()[1]('6')
-        getLatestCall()[1]('6')
-        getLatestCall()[1]('6')
-        getLatestCall()[1]('5')
-        getLatestCall()[1]('5')
-        getLatestCall()[1]('5')
-        getLatestCall()[1]('5')
-        getLatestCall()[1]('5')
-        getLatestCall()[1]('4')
-        getLatestCall()[1]('4')
-        getLatestCall()[1]('4')
-        getLatestCall()[1]('4')
-        getLatestCall()[1]('4')
-        getLatestCall()[1]('4')
-        getLatestCall()[1]('5')
+        makeMove('1')
+        makeMove('1')
+        makeMove('1')
+        makeMove('1')
+        makeMove('1')
+        makeMove('1')
+        makeMove('2')
+        makeMove('2')
+        makeMove('2')
+        makeMove('2')
+        makeMove('2')
+        makeMove('2')
+        makeMove('3')
+        makeMove('3')
+        makeMove('3')
+        makeMove('3')
+        makeMove('3')
+        makeMove('3')
+        makeMove('7')
+        makeMove('7')
+        makeMove('7')
+        makeMove('7')
+        makeMove('7')
+        makeMove('7')
+        makeMove('6')
+        makeMove('6')
+        makeMove('6')
+        makeMove('6')
+        makeMove('6')
+        makeMove('6')
+        makeMove('5')
+        makeMove('5')
+        makeMove('5')
+        makeMove('5')
+        makeMove('5')
+        makeMove('4')
+        makeMove('4')
+        makeMove('4')
+        makeMove('4')
+        makeMove('4')
+        makeMove('4')
+        makeMove('5')
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('It is a tie! Game over.'))
     })
@@ -140,13 +141,13 @@ describe('Connect Four', () => {
         await start()
 
         for (let i = 1; i <= 6; i++) {
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('1')
+            makeMove('1')
+            makeMove('2')
+            makeMove('1')
+            makeMove('2')
+            makeMove('1')
+            makeMove('3')
+            makeMove('1')
         }
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
@@ -157,13 +158,13 @@ describe('Connect Four', () => {
         await start()
 
         for (let i = 1; i <= 6; i++) {
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('4')
+            makeMove('1')
+            makeMove('1')
+            makeMove('2')
+            makeMove('2')
+            makeMove('3')
+            makeMove('3')
+            makeMove('4')
         }
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
@@ -176,17 +177,17 @@ describe('Connect Four', () => {
         await start()
 
         for (let i = 1; i <= 6; i++) {
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('4')
-            readlineMock.question.calls[0][1]('4')
-            readlineMock.question.calls[0][1]('4')
-            readlineMock.question.calls[0][1]('4')
+            makeMove('1')
+            makeMove('2')
+            makeMove('2')
+            makeMove('2')
+            makeMove('3')
+            makeMove('3')
+            makeMove('3')
+            makeMove('4')
+            makeMove('4')
+            makeMove('4')
+            makeMove('4')
         }
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
@@ -197,17 +198,17 @@ describe('Connect Four', () => {
         await start()
 
         for (let i = 1; i <= 6; i++) {
-            readlineMock.question.calls[0][1]('4')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('3')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('2')
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('1')
-            readlineMock.question.calls[0][1]('1')
+            makeMove('4')
+            makeMove('3')
+            makeMove('3')
+            makeMove('3')
+            makeMove('2')
+            makeMove('2')
+            makeMove('2')
+            makeMove('1')
+            makeMove('1')
+            makeMove('1')
+            makeMove('1')
         }
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
