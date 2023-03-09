@@ -55,6 +55,15 @@ describe('Connect Four', () => {
         expect(consoleErrorStub).toHaveBeenCalledWith('Invalid input: "abc". Try again.')
     })
 
+    it('should prevent a move out of range', async () => {
+        
+        await start()
+
+        makeMove('8')
+        
+        expect(consoleErrorStub).toHaveBeenCalledWith(expect.stringContaining('Invalid input: "8"'))
+    })
+
     it('should place a piece in an empty slot', async () => {
         
         await start()

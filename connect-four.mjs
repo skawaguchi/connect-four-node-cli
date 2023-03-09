@@ -1,6 +1,5 @@
 import * as readline from 'node:readline'
 import { stdin, stdout } from 'node:process'
-import { once } from 'events'
 
 const WIN_CONDITION = 4
 
@@ -18,6 +17,13 @@ export const getBoard = (cols = 7, rows = 6) => {
 
 const printBoard = (board) => {
     let output = ``
+    for (let j = 0; j < board[0].length; j++) {
+        output += `  ${j + 1} `
+    }
+    output += '\n'
+    output += '----'.repeat(board[0].length)
+    output += '-\n'
+    
     for (let i = 0; i < board.length; i++) {
         const row = board[i]
         output += '|'
@@ -33,6 +39,9 @@ const printBoard = (board) => {
         }
         output += '\n'
     }
+    output += '----'.repeat(board[0].length)
+    output += '-\n'
+
     console.info(output)
 }
 const isBoardFull = (board) => {
@@ -138,6 +147,12 @@ const processMove = (rl, board, moveInput, player) => {
 
     const index = parseInt(moveInput) - 1
 
+    if (index < 0 || index > 6) {
+        console.error(`Invalid input: "${moveInput}". You must enter the number of a valid column. Please try again.`)
+        promptPlayer(rl, board, player)
+        return
+    }
+
     let isPlaced = false
     for (let i = board.length - 1; i >= 0; i--) {
         const row = board[i]
@@ -167,7 +182,7 @@ const processMove = (rl, board, moveInput, player) => {
 }
 
 const promptPlayer = async (rl, board, player) => {
-    rl.question(`It is ${player}'s turn. Type 1 - 7 and hit ENTER.`, (moveInput) => {
+    rl.question(`It is ${player}'s turn. Type 1 - 7 and hit ENTER.\n`, (moveInput) => {
         processMove(rl, board, moveInput, player)
     })
    
