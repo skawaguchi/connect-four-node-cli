@@ -15,7 +15,7 @@ export const getBoard = (cols = 7, rows = 6) => {
 
 const printBoard = (board) => {
     let output = ``
-     for (let i = 0; i < board.length; i++) {
+    for (let i = 0; i < board.length; i++) {
         const row = board[i]
         output += '|'
         for (let j = 0; j < row.length; j++) {
@@ -32,10 +32,23 @@ const printBoard = (board) => {
     }
     console.info(output)
 }
+const isBoardFull = (board) => {
+    return board.every((row) => {
+        return row.every((slot) => {
+            return slot !== null
+        })
+    })
+}
 
 const processTurnOver = (rl, board, player) => {
     const nextPlayer = player === 'RED' ? 'YELLOW' : 'RED'
     promptPlayer(rl, board, nextPlayer)
+
+    if (isBoardFull(board)) {
+        console.info('It is a tie! Game over.')
+        rl.close()
+        return
+    }
 }
 
 const processMove = (rl, board, moveInput, player) => {
