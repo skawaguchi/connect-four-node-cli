@@ -1,5 +1,7 @@
 # connect-four-node-cli
 
+Try it out on [StackBlitz](https://stackblitz.com/edit/node-qd5vts?file=index.mjs)
+
 Requirements
 - 6 rows, 7 cols
 - 7 cols are slots for users
