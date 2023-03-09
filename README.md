@@ -1,4 +1,4 @@
-# opslevel-pair-programming-interview-redo
+# connect-four-node-cli
 
 Requirements
 - 6 rows, 7 cols
