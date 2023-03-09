@@ -197,19 +197,17 @@ describe('Connect Four', () => {
         
         await start()
 
-        for (let i = 1; i <= 6; i++) {
-            makeMove('4')
-            makeMove('3')
-            makeMove('3')
-            makeMove('3')
-            makeMove('2')
-            makeMove('2')
-            makeMove('2')
-            makeMove('1')
-            makeMove('1')
-            makeMove('1')
-            makeMove('1')
-        }
+        makeMove('4')
+        makeMove('3')
+        makeMove('3')
+        makeMove('3')
+        makeMove('2')
+        makeMove('2')
+        makeMove('2')
+        makeMove('1')
+        makeMove('1')
+        makeMove('1')
+        makeMove('1')
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
     })

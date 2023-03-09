@@ -90,8 +90,8 @@ const checkForWin = (rl, board, player) => {
             }
 
             // backslash
-            if (i < rows - 1 && j > 0 && board[i + 1][j - 1] === board[i][j]) {
-                dp[i][j].backSlash = dp[i + 1][j - 1].backSlash + 1
+            if (i > 0 && j > 0 && board[i - 1][j - 1] === board[i][j]) {
+                dp[i][j].backSlash = dp[i - 1][j - 1].backSlash + 1
             } else {
                 dp[i][j].backSlash = 1
             }
