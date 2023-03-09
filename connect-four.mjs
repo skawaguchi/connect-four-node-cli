@@ -82,7 +82,14 @@ const checkForWin = (rl, board, player) => {
                 dp[i][j].horizontal = 1
             }
 
-            if (dp[i][j].horizontal >= WIN_CONDITION) {
+            // vertical
+            if (i > 0 && board[i - 1][j] === board[i][j]) {
+                dp[i][j].vertical = dp[i - 1][j].vertical + 1
+            } else {
+                dp[i][j].vertical = 1
+            }
+
+            if (dp[i][j].horizontal >= WIN_CONDITION || dp[i][j].vertical >= WIN_CONDITION) {
                 return true
             }
         }
