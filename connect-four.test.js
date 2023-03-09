@@ -97,7 +97,83 @@ describe('Connect Four', () => {
         }
         
         expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('It is a tie! Game over.'))
+    })
+
+    it('should show a vertical win', async () => {
+        
+        await start()
+
+        for (let i = 1; i <= 6; i++) {
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('1')
+        }
+        
+        expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
+    })
+
+    it('should show a horizontal win', async () => {
+        
+        await start()
+
+        for (let i = 1; i <= 6; i++) {
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('4')
+        }
+        
+        expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
 
         expect(readlineMock.close).toHaveBeenCalled()
+    })
+
+    it('should show a forward slash win', async () => {
+        
+        await start()
+
+        for (let i = 1; i <= 6; i++) {
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('4')
+            readlineMock.question.calls[0][1]('4')
+            readlineMock.question.calls[0][1]('4')
+            readlineMock.question.calls[0][1]('4')
+        }
+        
+        expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
+    })
+
+    it('should show a backslash win', async () => {
+        
+        await start()
+
+        for (let i = 1; i <= 6; i++) {
+            readlineMock.question.calls[0][1]('4')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('3')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('2')
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('1')
+            readlineMock.question.calls[0][1]('1')
+        }
+        
+        expect(consoleInfoStub).toHaveBeenCalledWith(expect.stringContaining('RED won'))
     })
 })

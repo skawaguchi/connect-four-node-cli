@@ -1,5 +1,8 @@
 import * as readline from 'node:readline'
 import { stdin, stdout } from 'node:process'
+import { once } from 'events'
+
+const WIN_CONDITION = 4
 
 const chooseStartingPlayer = () => {
     return 'RED'
@@ -40,6 +43,53 @@ const isBoardFull = (board) => {
     })
 }
 
+const processWin = (rl, player) => {
+    console.info(`Whoa! Player ${player} won. Congratulations!`)
+    rl.close()
+    return
+}
+
+const checkForWin = (rl, board, player) => {
+    const rows = board.length
+    const cols = board[0].length
+
+    // Build a grid to start tracking wins again
+    const dp = []
+    for (let i = 0; i < rows; i++) {
+        dp.push([])
+        for (let j = 0; j < cols; j++) {
+            dp[i].push({
+                horizontal: 0,
+                vertical: 0,
+                forwardSlash: 0,
+                backSlash: 0,
+            })
+        }
+    }
+
+    // Check wins
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            // skip empty
+            if (!board[i][j]) {
+                continue
+            }
+
+            // horizontal
+            if (j > 0 && board[i][j - 1] === board[i][j]) {
+                dp[i][j].horizontal = dp[i][j - 1].horizontal + 1
+            } else {
+                dp[i][j].horizontal = 1
+            }
+
+            if (dp[i][j].horizontal >= WIN_CONDITION) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
 const processTurnOver = (rl, board, player) => {
     const nextPlayer = player === 'RED' ? 'YELLOW' : 'RED'
     promptPlayer(rl, board, nextPlayer)
@@ -77,6 +127,13 @@ const processMove = (rl, board, moveInput, player) => {
     }
 
     printBoard(board)
+
+    const isWin = checkForWin(rl, board, player)
+
+    if (isWin) {
+        processWin(rl, player)
+        return
+    }
 
     processTurnOver(rl, board, player)
 }
